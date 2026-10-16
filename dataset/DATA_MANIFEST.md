@@ -25,7 +25,7 @@
 
 | 文件 | 行数 | 说明 |
 |------|------|------|
-| `dpo_merged.jsonl` | 10 000 | 云上（shibing 5k + btf 5k） |
+| ~~`dpo_merged.jsonl`~~ | — | 脏数据，**本机已删** |
 | `dpo_clean.jsonl` | 12 091 | 本地干净 DPO |
 
 ## 样本目录

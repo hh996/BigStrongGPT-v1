@@ -11,7 +11,7 @@
 |------|------------|----------------------|----------------|-----------------|
 | **预训练** | **云上 AutoDL** | [SkyPile-150B](https://huggingface.co/datasets/Skywork/SkyPile-150B) 中文 head，多 shard、远多于本地 | `pretrain_skypile.jsonl`（**小样**，见下） | `output/v1/pretrain/last.pt` |
 | **SFT 第一轮** | **云上** | Belle 3 万 + alpaca-zh 2 万 → 合并去重 | `sft_merged.jsonl`（≈5 万） | **`output/v1/sft/last.pt`（主用）** |
-| **DPO（云上）** | **云上** | shibing 中文偏好 5k + **btf 中文 DPO 5k**（脏） | `dpo_merged.jsonl`（1 万） | `output/v1/dpo/last.pt`（**不推荐**） |
+| **DPO（云上，脏）** | **云上** | shibing 5k + **btf 5k** → `dpo_merged` | **本机已删**（勿恢复） | 曾对应 `dpo/last.pt` |
 | **蒸馏** | **本地** | 从 `sft_merged` 抽用户问题，**Qwen2.5-7B-Instruct** 生成回答 | `sft_distill_7b.jsonl`（2 万） | 不单独出 ckpt |
 | **SFT 第二轮** | **本地** | `sft_merged` + `sft_distill_7b` 合并去重 | `sft_merged_v2.jsonl`（≈7 万） | `output/v1/sft_v2/last.pt`（不如 v1 SFT） |
 | **DPO 干净** | **本地** | shibing 中文 + enthusiastic，**无 btf**，过滤脏话/过长 | `dpo_clean.jsonl`（≈1.2 万） | `output/v1/dpo_clean/last.pt`（实验，见下） |
@@ -137,7 +137,7 @@ samples/03_dpo/dpo_clean_head15.jsonl       # 本地干净 DPO
 | `sft_merged.jsonl` | **第一轮 SFT 训练集** |
 | `sft_distill_7b.jsonl` | **7B 蒸馏 2 万** |
 | `sft_merged_v2.jsonl` | 第二轮 SFT 训练集 |
-| `dpo_merged.jsonl` | **云上 DPO（含 btf，弃用）** |
+| ~~`dpo_merged.jsonl`~~ | 云上脏 DPO（**本机已删**）；需要时勿用 btf，用 `dpo_clean` |
 | `dpo_clean.jsonl` | **本地干净 DPO** |
 
 更细的字段说明见 [DATA_MANIFEST.md](DATA_MANIFEST.md)（偏运维清单）。
