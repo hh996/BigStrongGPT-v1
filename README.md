@@ -1,5 +1,7 @@
 # BigStrongGPT v1
 
+**仓库**：<https://github.com/hh996/BigStrongGPT-v1>（v1 唯一维护线）
+
 中文 Decoder-Only 小语言模型（约 **87M**：768×12、GQA、词表 16K）。  
 训练链路：**Pretrain → SFT →（可选）7B 蒸馏 / 第二轮 SFT**。
 
@@ -55,14 +57,4 @@ python -m bigstrong.train --config configs/v1/sft.yaml
 
 数据：`python scripts/download_datasets.py --help`  
 蒸馏：`.\scripts\run_distill_local.ps1`  
-详见 [docs/LOCAL.md](docs/LOCAL.md)、[docs/DATA_SOURCES.md](docs/DATA_SOURCES.md)。
-
-## 从「大仓」导出本目录
-
-若在旧仓库 `BigStrongGPT` 中，可运行：
-
-```powershell
-.\scripts\export_v1_repo.ps1 -Dest D:\path\BigStrongGPT-v1
-```
-
-再在新目录 `git init` 并 push。
+详见 [docs/LOCAL.md](docs/LOCAL.md)、[docs/DATA_SOURCES.md](docs/DATA_SOURCES.md)、[docs/REPOSITORY.md](docs/REPOSITORY.md)（迁数据与旧仓说明）。

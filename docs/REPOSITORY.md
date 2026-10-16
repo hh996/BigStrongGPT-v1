@@ -1,47 +1,31 @@
-# 仓库怎么放、要不要新建仓库
+# 仓库说明（仅维护本仓）
 
-## 方案 A：继续用本仓库 `BigStrongGPT`（推荐）
+**正式仓库**：<https://github.com/hh996/BigStrongGPT-v1>
 
-单仓多代，边界已整理：
+旧 monorepo `hh996/BigStrongGPT`（含 `legacy/v0_25m`）不再作为 v1 开发主线；新改动只在本仓提交、推送。
 
-| 目录 | 内容 |
-|------|------|
-| `src/bigstrong/` | v1 正式代码 |
-| `scripts/benchmark/` | 评测与对比（实现） |
-| `scripts/local/` | Windows 一键 |
-| `scripts/*.py` 根下短文件 | **兼容入口**，转发到 `benchmark/` |
-| `legacy/v0_25m/` | 25M，不扩展 |
-
-大文件仍在 `.gitignore`：`output/`、`models/`、`dataset/*.jsonl`、`.env`、`笔记.md`。
-
-## 方案 B：导出 v1 到新目录 / 新 Git 仓库
-
-适合：对外只展示 v1、去掉 legacy/RAG。
+## 日常开发
 
 ```powershell
-cd C:\Users\haohuang\PycharmProjects\BigStrongGPT
-.\scripts\export_v1_repo.ps1
-# 默认: ..\BigStrongGPT-v1
-
-# 或指定路径
-.\scripts\export_v1_repo.ps1 -Dest D:\repos\BigStrongGPT-v1
+git clone https://github.com/hh996/BigStrongGPT-v1.git
+cd BigStrongGPT-v1
+conda activate BigStrongGPT
+$env:PYTHONPATH = "src;."
 ```
 
-导出内容：**不含** `legacy/`、`笔记.md`、权重与 jsonl；**含** `README.v1.md` → 复制为 `README.md`。
+PyCharm / Cursor：**打开本目录**为项目根，不要再用旧 `BigStrongGPT` 路径做 git 提交。
 
-新目录初始化：
+## 从旧本机目录迁数据（一次性）
 
-```powershell
-cd ..\BigStrongGPT-v1
-git init -b main
-git add -A
-git status   # 确认无 .env、无 *.pt
-git commit -m "Initial commit: BigStrongGPT v1 pipeline"
-git remote add origin <你的远程 URL>
-git push -u origin main
-```
+若你之前在 `PycharmProjects\BigStrongGPT` 里已有权重和数据，**复制**到本仓即可（不进 git）：
 
-本仓库可保留，在 README 里写一句：「v1 独立仓：xxx」。
+| 源（旧目录） | 目标（本仓） |
+|--------------|--------------|
+| `output/v1/` | `output/v1/` |
+| `dataset/*.jsonl` | `dataset/` |
+| `.env`（若有 SwanLab） | `.env` |
+
+旧目录可保留作备份，或改名 `BigStrongGPT-archive`；不必再 `git push` 到 `BigStrongGPT`。
 
 ## 提交前检查
 
@@ -49,4 +33,16 @@ git push -u origin main
 git status
 ```
 
-勿提交：`.env`、`笔记.md`、`output/`、`*.pt`、`dataset/*.jsonl`。
+勿提交：`.env`、`output/`、`models/`、`*.pt`、`dataset/*.jsonl`、`dataset/*.log`、`_gh/`。
+
+## 旧仓 `export_v1_repo.ps1`
+
+`scripts/export_v1_repo.ps1` 仍保留：若有人本地还握着旧大仓，可导出到空目录再与本远程对比。你已是本仓克隆时**不需要**再导出。
+
+## 旧 GitHub 仓库怎么处理（可选）
+
+在 <https://github.com/hh996/BigStrongGPT> 任选其一：
+
+1. **Archive**（Settings → Archive）：只读，历史保留。  
+2. **改 README**：顶部写一句「v1 见 [BigStrongGPT-v1](https://github.com/hh996/BigStrongGPT-v1)」。  
+3. 什么都不做：远程停在旧提交，本机只推 v1 仓。
