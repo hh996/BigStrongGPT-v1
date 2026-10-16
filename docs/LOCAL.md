@@ -14,7 +14,9 @@ $env:PYTHONPATH = "src;."
 |------|------|
 | **对话 / Demo** | `output/v1/sft/last.pt`（云上第一轮 SFT） |
 | Pretrain 基座 | `output/v1/pretrain/last.pt` |
-| 实验对比 | `output/v1/sft_v2/last.pt`、`output/v1/dpo_clean/last.pt` |
+| 实验对比 | `output/v1/sft_v2/last.pt` |
+| DPO 实验（可选） | `output/v1/dpo_clean/last.pt`（见下） |
+| 勿用 | `output/v1/dpo/last.pt`（云上脏 DPO）；`smoke_*` 冒烟权重本机不保留 |
 
 权重与完整 `dataset/*.jsonl` 不进 git；**预训练 / SFT / DPO / 蒸馏各用了啥**见 [dataset/README.md](../dataset/README.md)。
 

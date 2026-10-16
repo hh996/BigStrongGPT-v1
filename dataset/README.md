@@ -14,7 +14,11 @@
 | **DPO（云上）** | **云上** | shibing 中文偏好 5k + **btf 中文 DPO 5k**（脏） | `dpo_merged.jsonl`（1 万） | `output/v1/dpo/last.pt`（**不推荐**） |
 | **蒸馏** | **本地** | 从 `sft_merged` 抽用户问题，**Qwen2.5-7B-Instruct** 生成回答 | `sft_distill_7b.jsonl`（2 万） | 不单独出 ckpt |
 | **SFT 第二轮** | **本地** | `sft_merged` + `sft_distill_7b` 合并去重 | `sft_merged_v2.jsonl`（≈7 万） | `output/v1/sft_v2/last.pt`（不如 v1 SFT） |
-| **DPO 干净** | **本地** | shibing 中文 + enthusiastic，**无 btf**，过滤脏话/过长 | `dpo_clean.jsonl`（≈1.2 万） | `output/v1/dpo_clean/last.pt`（实验） |
+| **DPO 干净** | **本地** | shibing 中文 + enthusiastic，**无 btf**，过滤脏话/过长 | `dpo_clean.jsonl`（≈1.2 万） | `output/v1/dpo_clean/last.pt`（实验，见下） |
+
+**`dpo_clean` 是啥？** 在 **`sft/last.pt` 上**做的一轮 **DPO（偏好对齐）**：数据是 `dpo_clean.jsonl`（没有云上那种 btf 辱骂当「好答案」）。目的是让模型更倾向 `chosen`、远离 `rejected`。你这边实测 **不如直接用 SFT**，所以 Demo 仍用 `sft/last.pt`；`dpo_clean/` 只是留档对比。
+
+**`smoke_*`**：`configs/v1/smoke_*.yaml` 跑通的测试权重，**本机 output 不保留**（省约 2.5GB）。
 
 本地调试预训练还可看 `pretrain_wikipedia.jsonl`（**云上正式 pretrain 不用它**）。
 
