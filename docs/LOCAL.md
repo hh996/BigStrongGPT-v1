@@ -12,11 +12,10 @@ $env:PYTHONPATH = "src;."
 
 | 用途 | 路径 |
 |------|------|
-| **对话 / Demo** | `output/v1/sft/last.pt`（云上第一轮 SFT） |
+| **对话 / Demo** | `output/v1/sft/last.pt` |
 | Pretrain 基座 | `output/v1/pretrain/last.pt` |
-| 实验对比 | `output/v1/sft_v2/last.pt` |
-| DPO 实验（可选） | `output/v1/dpo_clean/last.pt`（见下） |
-| 已删 | 云上脏 DPO（`dpo_merged` / `output/v1/dpo`）本机不保留；`smoke_*` 同理 |
+
+本机数据只留 `pretrain_skypile.jsonl`、`sft_merged.jsonl`（见 `dataset/README.md`）。蒸馏 / 二轮 SFT / DPO / 脏 DPO / smoke 权重等已删。
 
 权重与完整 `dataset/*.jsonl` 不进 git；**预训练 / SFT / DPO / 蒸馏各用了啥**见 [dataset/README.md](../dataset/README.md)。
 
