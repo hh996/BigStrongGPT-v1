@@ -1,14 +1,18 @@
-# 训练数据说明（本机只留主链路）
+# 训练数据说明（本机保留 = 各 checkpoint 用到的）
 
-主链路：**Pretrain → SFT**；对话用 **`output/v1/sft/last.pt`**。
+| 权重目录 | 训练时读的数据 | 本机 `dataset/` 文件 |
+|----------|----------------|----------------------|
+| `output/v1/pretrain/` | SkyPile 中文 | `pretrain_skypile.jsonl` |
+| **`output/v1/sft/`**（主用） | 第一轮 SFT | **`sft_merged.jsonl`** |
+| `output/v1/sft_v2/` | 第二轮 SFT | `sft_merged_v2.jsonl`（= merged + 蒸馏合并） |
+| `output/v1/dpo_clean/` | 干净 DPO | `dpo_clean.jsonl` |
 
-| 阶段 | 本目录数据文件 | 权重 |
-|------|----------------|------|
-| 预训练 | `pretrain_skypile.jsonl`（SkyPile 中文小样；云上同源、量更大） | `output/v1/pretrain/last.pt` |
-| SFT | **`sft_merged.jsonl`**（Belle 3 万 + alpaca-zh 2 万合并去重，≈5 万条） | **`output/v1/sft/last.pt`** |
+**第二轮 SFT 原料链**（不单独训模型，但生成 `sft_merged_v2` 需要）：
 
-原料 `sft_belle` / `sft_alpaca_zh`、蒸馏 `sft_distill_7b`、`sft_merged_v2`、`dpo_clean`、维基预训练等 **本机已删**（曾做实验或已合并进 `sft_merged`）。需要可从 `scripts/download_datasets.py` 重新下。
+- `sft_distill_7b.jsonl`：从 `sft_merged` 抽问题，Qwen2.5-7B 写答案（`generate_distill.py`）
 
-**看样例**：`samples/01_pretrain/`、`samples/02_sft/merged_head20.jsonl`（每行 `conversations: [用户, 助手]`）。
+**不保留**：Belle/alpaca 单文件（已并进 `sft_merged`）、脏 `dpo_merged`、维基预训练、smoke 等。
 
-预训练每行：`{"text": "..."}`。
+**看样例**：`samples/01_pretrain/`、`02_sft/`、`03_dpo/`。
+
+若 `sft_distill_7b` / `sft_merged_v2` 缺失：先 `.\scripts\run_distill_local.ps1`，再 `python scripts/download_datasets.py --merge-sft-v2`。
