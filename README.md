@@ -12,8 +12,9 @@
 ├── configs/v1/             # pretrain / sft / sft_v2 / smoke / dpo_clean
 ├── tokenizer/v1/           # ChatML 词表（进 git）
 ├── dataset/lm_dataset.py   # Dataset 定义
-│   ├── DATA_MANIFEST.md    # 本机用了哪些 jsonl / 权重（可进 git）
-│   └── samples/            # 各阶段数据前几行（可进 git）
+│   ├── README.md           # **训练各阶段用了啥数据（先看这个）**
+│   ├── samples/            # 按阶段拆开的小样（可进 git）
+│   └── *.jsonl             # 完整数据本机备份，不进 git
 │   └── *.jsonl             # 完整数据本地复制，不进 git
 ├── scripts/
 │   ├── download_datasets.py
