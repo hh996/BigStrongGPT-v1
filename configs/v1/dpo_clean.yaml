@@ -1,0 +1,36 @@
+# 本地/正式：干净 DPO（dataset/dpo_clean.jsonl），从 SFT 权重继续。
+stage: dpo
+swanlab:
+  enabled: false
+  project: BigStrong2
+  workspace: BigHaoHao
+  experiment_name: dpo_clean
+tokenizer_dir: tokenizer/v1
+output_dir: output/v1/dpo_clean
+init_ckpt: output/v1/sft/last.pt
+model:
+  hidden_size: 768
+  num_hidden_layers: 12
+  num_attention_heads: 8
+  num_key_value_heads: 2
+  vocab_size: 16384
+  max_position_embeddings: 32768
+data:
+  path: dataset/dpo_clean.jsonl
+  max_samples: null
+train:
+  epochs: 1
+  batch_size: 1
+  max_seq_len: 512
+  learning_rate: 0.000005
+  beta: 0.08
+  weight_decay: 0.1
+  betas: [0.9, 0.95]
+  grad_clip: 1.0
+  accumulation_steps: 4
+  log_interval: 10
+  save_interval: 200
+  num_workers: 0
+  # 与云上约 5000 step 同量级；跑满 1 epoch 可改为 null（~1.2 万 step）
+  max_steps: 5000
+  device: null

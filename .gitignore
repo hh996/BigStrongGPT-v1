@@ -1,0 +1,30 @@
+.idea
+applications/files/*
+*.json
+*.jsonl
+*.log
+*.pth
+doc
+vector_db
+*.pyc
+unused
+legacy/v0_25m/output/
+output/
+models/
+
+# v1 词表需要进仓库，云上与本地共用
+!tokenizer/v1/
+!tokenizer/v1/**
+
+# Python
+__pycache__/
+
+# Environment variables
+.env
+
+# 实验日志（本地）
+swanlog/
+legacy/v0_25m/train/swanlog/
+dataset/raw/
+dataset/*.log
+!dataset/distill_progress.log
