@@ -16,7 +16,7 @@ $env:PYTHONPATH = "src;."
 | Pretrain 基座 | `output/v1/pretrain/last.pt` |
 | 实验对比 | `output/v1/sft_v2/last.pt`、`output/v1/dpo_clean/last.pt` |
 
-权重与 `dataset/*.jsonl` 不进 git，需自行备份。
+权重与完整 `dataset/*.jsonl` 不进 git；**用了什么数据**见 [dataset/DATA_MANIFEST.md](../dataset/DATA_MANIFEST.md)，`dataset/samples/` 可打开看样例。
 
 ## 评测
 

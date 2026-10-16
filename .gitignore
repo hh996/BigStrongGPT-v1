@@ -24,6 +24,11 @@ swanlog/
 dataset/raw/
 dataset/*.log
 
+# 数据说明与小样本可进 git（完整 jsonl 仍忽略）
+!dataset/DATA_MANIFEST.md
+!dataset/samples/
+!dataset/samples/**
+
 # 本地笔记 / 临时工具
 笔记.md
 _gh/

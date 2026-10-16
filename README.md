@@ -11,7 +11,10 @@
 ├── src/bigstrong/          # 模型与训练（python -m bigstrong.train）
 ├── configs/v1/             # pretrain / sft / sft_v2 / smoke / dpo_clean
 ├── tokenizer/v1/           # ChatML 词表（进 git）
-├── dataset/lm_dataset.py   # Dataset 定义（*.jsonl 本地生成，不进 git）
+├── dataset/lm_dataset.py   # Dataset 定义
+│   ├── DATA_MANIFEST.md    # 本机用了哪些 jsonl / 权重（可进 git）
+│   └── samples/            # 各阶段数据前几行（可进 git）
+│   └── *.jsonl             # 完整数据本地复制，不进 git
 ├── scripts/
 │   ├── download_datasets.py
 │   ├── generate_distill.py
